@@ -65,5 +65,88 @@ plt.plot(f)
 plt.show()
  ___________________________________________________________________________________________________________________________________   
 print ('Question 5')
+class Complex:
 
+def __init__(self, r=0, i=0):
+       self.r=r
+       self.i=i
+def copy(self):
+		return(Complex(self.r, self.i))
+	
+def conj(self):
+		
+		ans.r = ans.r
+		ans.i = - ans.i
+		return ans
+
+def __add__(self,num):
+		ans = self.copy()
+		if isinstance(num, Complex):
+			ans.r = ans.r + num.r
+			ans.i = ans.i + num.r
+		else:
+			ans.r = ans.r + num
+		return ans
+
+def __sub__(self,num):
+		ans = self.copy()
+		if isinstance(num, Complex):
+			ans.r = ans.r - num.r
+			ans.i = ans.i - num.i
+		else:
+			ans.r = ans.r - num
+		return ans
+	
+def __mult__(self,num):
+		ans = self.copy()
+		ans2 = self.copy()
+		if isinstance(num,Complex):
+			ans.r = ans.r*num.r - ans.i*num.i
+			ans.i = ans2.i*num.r + ans2.r*num.i
+		else:
+			ans.r = ans.r*num
+			ans.i = ans.i*num
+		return ans
+
+def __div__(self,num):
+		ans = self.copy()
+		if isinstance(val,Complex):
+                num2 = num.conj()
+		ans = ans*num2/(num.i**2 + num.r**2)	
+			
+		else:
+			ans.r = ans.r/num
+			ans.i = ans.i/num
+		return ans
+
+def __repr__(self):
+		if (self.i<0):
+			return repr(self.r) + ' - ' +repr(-1*self.i)+ 'i'
+		else:
+			return repr(self.r)+ ' + ' +repr(self.i)+ 'i'
+	
+def __abs__(self):
+		return numpy.sqrt(self.r**2 + self.i**2)
+
+
+if __name__=="__main__":
+
+    a = Complex(1.,5.)
+    b = a.copy()
+    b_neg = a.copy()
+    b_neg.r,bneg.i = -6,-3
+    b.r, b.i = 6., 3.
+
+print ('a and b are ' + repr(a) + ' and ' + repr(b))
+c = a * 5
+print (' a * 5 = ' +repr(c))
+c = a * b
+print( 'a * b = ' +repr(c))
+d = a * bneg
+print( 'a * (-b) = ' +repr(d))
+print( 'a and b are ' + repr(a) + ' and ' + repr(b))
+c = a/5.
+print( 'a / 5 = ' + repr(c))
+c = a/b
+print( 'a/b = ' + repr(c))
 
