@@ -1,0 +1,69 @@
+import numpy as np
+from numpy.fft import fft, ifft
+import matplotlib.pyplot as plt
+
+def gauss(x,x0=0,sig=1):
+	y = np.exp(-0.5*(x-x0)**2/sig**2)
+	return y
+
+def conv(f,g):#convolution
+	ft_1 = fft(f)
+	ft_2 = fft(g)
+	return np.real(ifft(ft_1*ft_2))
+
+def conv_shift(x,a): #convolution with shift
+	k = gauss(x)
+	mydelt = np.zeros(len(x))
+	mydelt[a] = 1
+	b = conv(k,mydelt)
+	return k,b
+
+def cor(f,g):#correlation
+	ft_1 = fft(f)
+	ft_2 = fft(g)
+	c = np.conj(ft_2)
+	return np.real(ifft(ft_1*c))
+
+def conv_no_wrap(f,g):#convolution with no wrap
+	z = np.zeros(100)
+	f = np.append(f, z)
+	g = np.append(g, z)
+	d = conv(f,g)
+	return d
+
+if __name__==("__main__"):
+_____________________________________________________________________________________________________________________________________	
+ print ('Question 1')
+x = np.arange(-10,10,0.1) # makes an array
+	
+p,q = conv_shift(x,len(x)/2) # gaussian shifted by convolution
+
+plt.plot(p)
+plt.plot(q)
+plt.show()
+_____________________________________________________________________________________________________________________________________
+print ('Question 2') 
+k = gauss(x)
+e = cor(k,k) #correlation function of Gaussian with itself
+plt.plot(e)
+plt.show()
+_____________________________________________________________________________________________________________________________________	
+print ('Question 3')
+shifts = [1,10,50,len(x)/2]
+col = ['r','g','b','k']
+for i in range(0,len(shifts)):
+	p,q = conv_shift(x,shifts[i])
+	e = cor(p,q)
+	plt.plot(e,col[i])
+plt.show()
+# The gaussian shifts from right to left as the position increases
+# A shift from the center to the right was expected. 
+____________________________________________________________________________________________________________________________________    
+print ('Question 4')
+f = conv_no_wrap(gauss(x),gauss(x)) #the circulant
+plt.plot(f)
+plt.show()
+ ___________________________________________________________________________________________________________________________________   
+print ('Question 5')
+
+
